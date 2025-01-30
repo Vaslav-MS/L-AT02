@@ -1,15 +1,18 @@
 import pytest
-from main import init_db, add_user, get_user
+from main import count_vowels
 
-@pytest.fixture
-def db_conn():
-    conn = init_db()
-    yield conn
-    conn.close()
+def test_only_vowels():
+    assert count_vowels("aeiou") == 5
+    assert count_vowels("АЕЁИОУЫЭЮЯ") == 10
 
-def test_add_or_get_user(db_conn):
-    add_user(db_conn, "Sasha", 30)
-    user = get_user(db_conn, "Sasha")
-    assert user == (1, "Sasha", 30)
+def test_no_vowels():
+    assert count_vowels("bcdfghjklmnpqrstvwxyz") == 0
+    assert count_vowels("1234567890") == 0
 
-
+def test_mixed_characters():
+    assert count_vowels("Hello, World!") == 3
+    assert count_vowels("Привет, мир!") == 3
+    assert count_vowels("PYTHON") == 1
+    assert count_vowels("катамаран") == 4
+    assert count_vowels("презентация") == 5
+    assert count_vowels("ёлки палки") == 4
