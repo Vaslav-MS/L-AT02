@@ -1,5 +1,22 @@
 import pytest
-from main import check
+from main import check, is_palindrom
+
+def test_is_palindrom_true():
+    assert is_palindrom('madam') == True
+
+def test_is_palindrom_false():
+    assert is_palindrom('bot') == False
+
+@pytest.mark.parametrize("test_input, expected", [
+    ('level', True),
+    ('python', False),
+    ('racecar', True),
+    ('', True),
+])
+
+def test_isPalindrome(test_input, expected):
+    assert is_palindrom(test_input) == expected
+
 
 def test_check_2():
     assert check(6) == True
